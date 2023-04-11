@@ -1,4 +1,4 @@
-{:ns     system
+{:ns main
  :import #{aidbox
            config}
 
