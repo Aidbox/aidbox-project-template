@@ -1,8 +1,8 @@
 # Aidbox project template
 
-This repository contains Aidbox base project. You can use to bootsrap your project with Aidbox.
+This repository contains a template for Aidbox project. You can use to bootsrap your project with Aidbox.
 
-# Install & run
+# How to init Aidbox project
 
 In order to run Aidbox locally, you need to have [Docker & Docker compose installed](https://docs.docker.com/engine/install/). To begin with new aidbox project, run the following command.
 
