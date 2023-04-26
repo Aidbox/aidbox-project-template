@@ -56,7 +56,7 @@
   :stdout-pretty           true
   :disable-legacy-seed     true}
 
- admin-seed
+ admin-user-seed
  {:zen/tags #{aidbox/service}
   :engine   aidbox/seed-v2
   :resources
@@ -67,12 +67,18 @@
    :User {:admin
           {:password #env AIDBOX_ADMIN_USER_PASSWORD}}
 
-   :AccessPolicy {:admin-seed-policy
+   :AccessPolicy {:allow-admin-user
                   {:engine "allow"
-                   :link   [{:resourceType "User" :id "admin"}
-                            {:resourceType "Client" :id "root"}]}}}}
+                   :link   [{:resourceType "User" :id "admin"}]}}}}
+ root-client-seed
+ {:zen/tags #{aidbox/service}
+  :engine   aidbox/seed-v2
+  :resources
+  {:Client {:root
+            {:secret      #env AIDBOX_ROOT_CLIENT_SECRET
+             :first_party true
+             :grant_types ["basic"]}}}
 
- base-box
- {:zen/tags #{aidbox/system}
-  :config   zen-config
-  :services {:seed admin-seed}}}
+   :AccessPolicy {:allow-root-client
+                  {:engine "allow"
+                   :link   [{:resourceType "Client" :id "root"}]}}}}}
