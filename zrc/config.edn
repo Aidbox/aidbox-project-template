@@ -61,11 +61,11 @@
   :engine   aidbox/seed-v2
   :resources
   {:Client {:root
-            {:secret      #env AIDBOX_CLIENT_SECRET
+            {:secret      #env AIDBOX_ROOT_CLIENT_SECRET
              :first_party true
              :grant_types ["client_credentials" "basic"]}}
    :User {:admin
-          {:password #env AIDBOX_ADMIN_PASSWORD}}
+          {:password #env AIDBOX_ADMIN_USER_PASSWORD}}
 
    :AccessPolicy {:admin-seed-policy
                   {:engine "allow"
