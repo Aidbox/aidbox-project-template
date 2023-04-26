@@ -71,7 +71,8 @@
   :engine   aidbox/seed-v2
   :resources
   {:Client {:root
-            {:secret      #env AIDBOX_CLIENT_SECRET
+            {:name        "Root client"
+             :secret      #env AIDBOX_CLIENT_SECRET
              :first_party true
              :grant_types ["basic"]}}
 
