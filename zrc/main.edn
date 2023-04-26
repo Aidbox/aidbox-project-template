@@ -1,8 +1,9 @@
-{:ns main
- :import #{aidbox
-           config}
-
+{ns main
+ import {aidbox
+         config}
+ 
  box
  {:zen/tags #{aidbox/system}
-  :config   config/zen-config
-  :services {:seed config/admin-seed}}}
+  :config   config/base-config
+  :services {:admin-user-seed config/admin-user-seed
+             :root-client-seed config/root-client-seed}}}
