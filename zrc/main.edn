@@ -1,6 +1,6 @@
 {ns main
- import {aidbox
-         config}
+ import #{aidbox
+          config}
  
  box
  {:zen/tags #{aidbox/system}
