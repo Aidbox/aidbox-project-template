@@ -73,8 +73,8 @@
   {:Client {:root
             {:secret      #env AIDBOX_CLIENT_SECRET
              :first_party true
-             :grant_types ["basic"]}}}
+             :grant_types ["basic"]}}
 
    :AccessPolicy {:allow-root-client
                   {:engine "allow"
-                   :link   [{:resourceType "Client" :id "root"}]}}}}}
+                   :link   [{:resourceType "Client" :id "root"}]}}}}}}
