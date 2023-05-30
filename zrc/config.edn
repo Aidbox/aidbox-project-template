@@ -39,12 +39,17 @@
   :validation {:json-schema {:regex #{:fhir-datetime}}}
   :auth       {:pkce {:code-challenge {:s256 {:conformant true}}}}}
 
+ auth
+ {:zen/tags       #{aidbox.config/auth}
+  :login-redirect "/ui/console"}
+
  base-config
  {:zen/tags                #{aidbox.config/config}
   :web                     web-config
   :db                      db-config
   :search                  search-config
   :compatibility           compatibility-config
+  :auth                    auth
 
   :aidbox-license #env AIDBOX_LICENSE
 
