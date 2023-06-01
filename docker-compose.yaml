@@ -30,5 +30,6 @@ services:
       BOX_PROJECT_GIT_TARGET__PATH: /aidbox-project
       AIDBOX_ZEN_ENTRYPOINT: main/box
       AIDBOX_DEV_MODE: "true"
+      AIDBOX_ZEN_DEV_MODE: "true"
       PGPORT: 5432
       PGHOST: aidbox-db
