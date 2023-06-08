@@ -41,7 +41,10 @@
 
  auth
  {:zen/tags       #{aidbox.config/auth}
-  :login-redirect "/ui/console"}
+  :login-redirect "/ui/console"
+  :keys {:secret #env BOX_AUTH_KEYS_SECRET
+         :private #env BOX_AUTH_KEYS_PRIVATE
+         :public #env BOX_AUTH_KEYS_PUBLIC}}
 
  base-config
  {:zen/tags                #{aidbox.config/config}
