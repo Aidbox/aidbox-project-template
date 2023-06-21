@@ -52,7 +52,7 @@
   :db                      db-config
   :search                  search-config
   :compatibility           compatibility-config
-  :auth                    auth
+  #_#_:auth                    auth
 
   :aidbox-license #env AIDBOX_LICENSE
 
