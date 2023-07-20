@@ -33,3 +33,6 @@ services:
       AIDBOX_ZEN_DEV_MODE: "true"
       PGPORT: 5432
       PGHOST: aidbox-db
+
+      # Modules:
+      AIDBOX_CCDA_MODULE: "enabled"
