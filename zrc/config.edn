@@ -3,20 +3,6 @@
           aidbox.config
           hl7-fhir-r4-core}
 
- db-config
- {:zen/tags #{aidbox.config/db}
-  :pool     {:connection-timeout  30000
-             :idle-timeout        1000
-             :minimum-idle        2
-             :maximum-pool-size   30
-             :connection-init-sql "SELECT 1"}
-
-  :database #env PGDATABASE
-  :host     #env PGHOST
-  :port     #env PGPORT
-  :user     #env PGUSER
-  :password #env PGPASSWORD}
-
  web-config
  {:zen/tags              #{aidbox.config/web}
   :base-url              #env AIDBOX_BASE_URL
@@ -24,20 +10,6 @@
   :thread                8
   :max-body              10000000
   :request-save-raw-body false}
-
- search-config
- {:zen/tags         #{aidbox.config/search}
-  :zen-fhir         :enable
-  :fhir-comparisons true
-  :default-params   {:timeout 30
-                     :total   "none"
-                     :count   100}
-  :chain            {:subselect true}}
-
- compatibility-config
- {:zen/tags   #{aidbox.config/compatibility}
-  :validation {:json-schema {:regex #{:fhir-datetime}}}
-  :auth       {:pkce {:code-challenge {:s256 {:conformant true}}}}}
 
  auth
  {:zen/tags       #{aidbox.config/auth}
@@ -49,9 +21,6 @@
  base-config
  {:zen/tags                #{aidbox.config/config}
   :web                     web-config
-  :db                      db-config
-  :search                  search-config
-  :compatibility           compatibility-config
   :auth                    auth
 
   :aidbox-license #env AIDBOX_LICENSE
@@ -86,4 +55,4 @@
 
    :AccessPolicy {:allow-root-client
                   {:engine "allow"
-                   :link   [{:resourceType "Client" :id "root"}]}}}}}}
+                   :link   [{:resourceType "Client" :id "root"}]}}}}}
