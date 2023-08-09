@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ccda-demo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      ccda: web
+  template:
+    metadata:
+      labels:
+        ccda: web
+    spec:
+      containers:
+      - name: ccda-service
+        image: healthsamurai/aidboxone:edge
+        env:
+        - name: BOX_PROJECT_GIT_PROTOCOL
+          value: https
+        - name: BOX_PROJECT_GIT_URL
+          value: https://github.com/Aidbox/aidbox-project-template.git
+        - name: BOX_PROJECT_GIT_CHECKOUT
+          value: aidbox-ccda-service 
+        - name: AIDBOX_BASE_URL 
+          value: "http://localhost:8888"
+        - name: AIDBOX_PORT
+          value: "8888"
+        - name: AIDBOX_ZEN_ENTRYPOINT
+          value: "main/box"
+        - name: AIDBOX_DEV_MODE
+          value: "true"
+        - name: AIDBOX_ZEN_DEV_MODE
+          value: "true"
+        - name: AIDBOX_CCDA_MODULE
+          value: "enabled"
+        - name: AIDBOX_LICENSE
+          value: <YOUR_LICENSE_KEY>
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ccda-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    ccda: web
+  ports:
+  - port: 8888 
+    targetPort: 8888
+    nodePort: 30001 
