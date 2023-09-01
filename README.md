@@ -1,6 +1,10 @@
 # Aidbox project template
 
-This repository contains a template for Aidbox project. You can use to bootsrap your project with Aidbox.
+This repository contains a **template** for the **Aidbox** project with:
+
+- **v4.3.0 R4B FHIR version**
+- A preconfigured example of **SubscriptionTopic** for the **observation resource**.
+
 
 # How to init Aidbox project
 

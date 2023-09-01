@@ -1,1 +1,2 @@
-{:deps {hl7-fhir-r4-core "https://github.com/zen-fhir/hl7-fhir-r4-core.git"}}
+{:deps {hl7-fhir-r4b-core "https://github.com/zen-fhir/hl7-fhir-r4b-core.git"
+        hl7-fhir-uv-subscriptions-backport-r4b  "https://github.com/zen-fhir/hl7-fhir-uv-subscriptions-backport-r4b"}}

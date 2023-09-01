@@ -1,7 +1,9 @@
 {ns     config
  import #{aidbox
           aidbox.config
-          hl7-fhir-r4-core}
+          aidbox.log
+          hl7-fhir-r4b-core
+          hl7-fhir-uv-subscriptions-backport-r4b}
 
  db-config
  {:zen/tags #{aidbox.config/db}
@@ -53,15 +55,12 @@
   :search                  search-config
   :compatibility           compatibility-config
   :auth                    auth
-
   :aidbox-license #env AIDBOX_LICENSE
-
-  :fhir-version            "4.0.1"
+  :fhir-version            "4.3.0"
   :compliant-mode-enabled? true
   :override-createdat-url  "http://fhir.aidbox.app/extension/createdat"
   :correct-aidbox-format   true
   :dev-mode                #env-boolean AIDBOX_DEV_MODE
-  :stdout-pretty           true
   :disable-legacy-seed     true}
 
  admin-user-seed
@@ -86,4 +85,13 @@
 
    :AccessPolicy {:allow-root-client
                   {:engine "allow"
-                   :link   [{:resourceType "Client" :id "root"}]}}}}}}
+                   :link   [{:resourceType "Client" :id "root"}]}}}}
+
+
+ stdout-appender
+ {:zen/tags #{aidbox/service}
+  :engine   aidbox.log/stdout-appender
+  :pretty true
+  :transforms {}}
+
+ }

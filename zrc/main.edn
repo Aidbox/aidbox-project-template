@@ -1,9 +1,45 @@
 {ns main
- import #{aidbox
-          config}
- 
+ import #{aidbox config}
+
+ observation-topic
+ {:zen/tags #{fhir.topic-based-subscription/topic-definition}
+  :url "http://aidbox.app/SubscriptionTopic/observations"
+  :resourceTrigger [{:resource "Observation"
+                     :fhirPathCriteria "%current.value.ofType(Quantity).value > 10"}]
+
+  :canFilterBy [{:resource        "Observation"
+                 :filterParameter "value"
+                 :_fhirPath       "%current.value.ofType(Quantity).value"
+                 :modifier        ["eq" "gt" "lt" "ge" "le"]}
+
+                {:resource        "Observation"
+                 :filterParameter "value-increase"
+                 :_fhirPath       "%current.value.ofType(Quantity).value > %previous.value.ofType(Quantity).value"
+                 :modifier        ["eq"]}]}
+
+
+ postgres-observation-topic-storage
+ {:zen/tags #{fhir.topic-based-subscription/topic-storage}
+  :storage-type fhir.topic-based-subscription/postgres
+  :timeout  1
+  :status-interval 10
+  :maxCount 100
+  :heartbeat-rate 120
+  :senders-number 2
+  :maxContent "full-resource"
+  :table-name "observation_topic"}
+
+ observation-topic-srv
+ {:zen/tags #{aidbox/service}
+  :engine fhir.topic-based-subscription/change-data-capture-service-engine
+  :topic-definition observation-topic
+  :topic-storage postgres-observation-topic-storage}
+
  box
  {:zen/tags #{aidbox/system}
   :config   config/base-config
   :services {:admin-user-seed config/admin-user-seed
-             :root-client-seed config/root-client-seed}}}
+             :root-client-seed config/root-client-seed
+             :logs config/stdout-appender
+
+             :observation-topic-srv observation-topic-srv}}}
