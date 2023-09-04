@@ -33,3 +33,14 @@ services:
       AIDBOX_ZEN_DEV_MODE: "true"
       PGPORT: 5432
       PGHOST: aidbox-db
+
+  subscription-demo-server:
+    image: healthsamurai/aidboxone:edge
+    pull_policy: always
+    links:
+      - "aidbox-db:database"
+    ports:
+      - "9001:9001"
+    env_file:
+      - .env
+    entrypoint: ["java", "-XX:-OmitStackTraceInFastThrow", "-jar", "/aidbox.jar", "-m", "fhir.topic-based-subscription.demo-server"]
