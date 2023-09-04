@@ -4,7 +4,7 @@ This repository contains a **template** for the **Aidbox** project with:
 
 - **v4.3.0 R4B FHIR version**
 - A preconfigured example of **SubscriptionTopic** for the **observation resource**.
-- **subscription-demo-server** which allow to recieve notification from Aidbox, and review them.
+- **subscription-demo-server** which allow to receive notification from Aidbox, and review them.
 
 
 # How to init this project
@@ -23,12 +23,12 @@ Once you set the license key, you may run Aidbox service with Docker compose by 
 docker compose up
 ```
 
-Command ~docker compose up~ will start Aidbox instance configured with ~SubscriptionTopic~ for ~Observation~ resource with some filters and criteria preconfigured.
-By default *Aidbox* is avialable at ~http://localhost:8888~, default *User* is: _username_  ~admin~, _password_  ~password~.
+Command _docker compose up_ will start Aidbox instance configured with _SubscriptionTopic_ for _Observation_ resource with some filters and criteria preconfigured.
+By default *Aidbox* is available at _http://localhost:8888_, default *User* is: _username_  `admin`, _password_  `password`.
 
-The demo subscription server, which accepts messages from Aidbox, is now running. The UI to monitor these delivered messages is available at ~http://localhost:9001~.
+The demo subscription server, which accepts messages from Aidbox, is now running. The UI to monitor these delivered messages is available at _http://localhost:9001_
 
-While creating Subscriptions in Aidobx, use ~http://subscription-demo-server:9000/<something>~ as endpoint value.
+While creating Subscriptions in Aidobx, use _http://subscription-demo-server:9000/<something>_as endpoint value.
 
 
 # How to create Subscription and check notification.
@@ -90,7 +90,7 @@ http://localhost:8888/fhir/Subscription
 ## Verify that the handshake notification has been delivered.
 
 ## Create a resource, that should trigger the notification:
-The next command will trigger the notification. However, since ~max-count~ in the subscription is specified as ~3~, this command should be repeated three times to deliver the notification immediately.
+The next command will trigger the notification. However, since _max-count_ in the subscription is specified as _3_, this command should be repeated three times to deliver the notification immediately.
 ``` sh
 curl -X POST \
 -u root:secret \
@@ -119,7 +119,7 @@ http://localhost:8888/fhir/Observation
 ## Verify that event-notification has been delivered.
 
 ## Check heartbeat notification.
-If no new resources fitting the subscription are created during ~heartbeat-period~ (30 sec), the heartbeat notification will be delivered:
+If no new resources fitting the subscription are created during _heartbeat-period_ (30 sec), the heartbeat notification will be delivered:
 
 # What's next
 Check documentation for [Aidbox SubscriptionTopic module](https://docs.aidbox.app/modules-1/topic-based-subscriptions)
