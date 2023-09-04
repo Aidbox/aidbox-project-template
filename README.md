@@ -28,7 +28,7 @@ By default *Aidbox* is available at _http://localhost:8888_, default *User* is: 
 
 The demo subscription server, which accepts messages from Aidbox, is now running. The UI to monitor these delivered messages is available at _http://localhost:9001_
 
-While creating Subscriptions in Aidobx, use _http://subscription-demo-server:9000/<something>_as endpoint value.
+While creating Subscriptions in Aidobx, use `http://subscription-demo-server:9000/<something>` as endpoint value.
 
 
 # How to create Subscription and check notification.
@@ -88,6 +88,7 @@ http://localhost:8888/fhir/Subscription
 ```
 
 ## Verify that the handshake notification has been delivered.
+<img width="1297" alt="Screenshot 2023-09-04 at 16 14 23" src="https://github.com/Aidbox/aidbox-project-template/assets/1230663/97bccc28-aedb-4099-8c23-b4effeaaf911">
 
 ## Create a resource, that should trigger the notification:
 The next command will trigger the notification. However, since _max-count_ in the subscription is specified as _3_, this command should be repeated three times to deliver the notification immediately.
@@ -117,9 +118,11 @@ http://localhost:8888/fhir/Observation
 ```
 
 ## Verify that event-notification has been delivered.
+<img width="1397" alt="Screenshot 2023-09-04 at 15 42 08" src="https://github.com/Aidbox/aidbox-project-template/assets/1230663/e399e8f9-3cf2-4ad9-a3e4-3f1085eeab92">
 
 ## Check heartbeat notification.
 If no new resources fitting the subscription are created during _heartbeat-period_ (30 sec), the heartbeat notification will be delivered:
+<img width="1427" alt="Screenshot 2023-09-04 at 15 44 29" src="https://github.com/Aidbox/aidbox-project-template/assets/1230663/b4768775-1d36-4122-94c5-1891e652d6d1">
 
 # What's next
 Check documentation for [Aidbox SubscriptionTopic module](https://docs.aidbox.app/modules-1/topic-based-subscriptions)
