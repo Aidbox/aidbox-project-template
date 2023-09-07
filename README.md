@@ -81,7 +81,6 @@ curl -X POST \
   "resourceType": "Subscription",
   "reason": "R4/B Test Topic-Based Subscription for Observation",
   "status": "requested",
-  "id": "test-sub-1",
   "end": "2024-12-31T12:00:00.000-00:00"
 }' \
 http://localhost:8888/fhir/Subscription

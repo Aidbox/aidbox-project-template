@@ -43,4 +43,7 @@ services:
       - "9001:9001"
     env_file:
       - .env
+    environment:
+      AIDBOX_HOST: "http://aidbox:${AIDBOX_PORT}"
+      SUBSCRIBER_HOST: "http://subscription-demo-server:9000"
     entrypoint: ["java", "-XX:-OmitStackTraceInFastThrow", "-jar", "/aidbox.jar", "-m", "fhir.topic-based-subscription.demo-server"]
