@@ -1,4 +1,7 @@
 version: '3.7'
+volumes:
+  prometheus-data:
+  grafana-data:
 services:
   aidbox-db:
     image: healthsamurai/aidboxdb:15.3
@@ -20,6 +23,7 @@ services:
       - "aidbox-db:database"
     ports:
       - "${AIDBOX_PORT}:${AIDBOX_PORT}"
+      - "${BOX_METRICS_PORT}:${BOX_METRICS_PORT}"
     volumes:
       - "./zrc:/aidbox-project/zrc"
       - "./zen-package.edn:/aidbox-project/zen-package.edn"
@@ -33,6 +37,49 @@ services:
       AIDBOX_ZEN_DEV_MODE: "true"
       PGPORT: 5432
       PGHOST: aidbox-db
+
+  pushgateway:
+    image: prom/pushgateway
+    container_name: pushgateway
+    restart: unless-stopped
+    ports:
+      - 9091:9091
+
+  prometheus:
+    image: prom/prometheus:v2.30.3
+    container_name: "prometheus"
+    # env_file:
+    #   - .env
+    environment:
+      V: 'v5'
+    ports:
+      - 9090:9090
+    volumes:
+      - ./audit/prometheus/:/etc/prometheus/:cached
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    depends_on:
+      - pushgateway
+    extra_hosts:
+      - aidbox:host-gateway
+
+  grafana:
+    environment:
+      V: 'v5'
+      GF_SECURITY_ALLOW_EMBEDDING: "true"
+      GF_SECURITY_COOKIE_SECURITY: "false"
+      GF_SECURITY_COOKIE_SAMESITE: "disabled"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./audit/grafana/provisioning:/etc/grafana/provisioning:cached
+    image: grafana/grafana:10.0.0
+    ports:
+      - 3000:3000
 
   subscription-demo-server:
     image: healthsamurai/aidboxone:edge

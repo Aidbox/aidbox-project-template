@@ -116,6 +116,21 @@ curl -X POST \
 http://localhost:8888/fhir/Observation
 ```
 
+## How to Set Up a Dashboard in Grafana with Topic-Related Information
+
+``` sh
+curl -X POST \
+-u root:secret \
+-H "Content-Type: application/json" \
+-H "Accept: application/json" \
+-d '{"method" : "aidbox.metrics/update-aidbox-topics-dashboard"}' \
+-v \
+http://localhost:8888/rpc
+
+```
+
+By default Grafana are avilable at `http://localhost:3000/` with `admin:admin`.
+
 ## Verify that event-notification has been delivered.
 <img width="1397" alt="Screenshot 2023-09-04 at 15 42 08" src="https://github.com/Aidbox/aidbox-project-template/assets/1230663/e399e8f9-3cf2-4ad9-a3e4-3f1085eeab92">
 

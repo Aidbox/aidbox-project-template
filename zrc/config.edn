@@ -48,6 +48,14 @@
          :private #env BOX_AUTH_KEYS_PRIVATE
          :public #env BOX_AUTH_KEYS_PUBLIC}}
 
+ metrics
+ {:zen/tags       #{aidbox.config/metrics}
+  :port           #env-integer BOX_METRICS_PORT
+  :grafana  {:user "admin@localhost"
+             :password "admin"
+             :url "http://grafana:3000"}
+  }
+
  base-config
  {:zen/tags                #{aidbox.config/config}
   :web                     web-config
@@ -61,7 +69,8 @@
   :override-createdat-url  "http://fhir.aidbox.app/extension/createdat"
   :correct-aidbox-format   true
   :dev-mode                #env-boolean AIDBOX_DEV_MODE
-  :disable-legacy-seed     true}
+  :disable-legacy-seed     true
+  :metrics                 metrics}
 
  admin-user-seed
  {:zen/tags #{aidbox/service}
