@@ -30,6 +30,11 @@ The demo subscription server, which accepts messages from Aidbox, is now running
 
 While creating Subscriptions in Aidobx, use `http://subscription-demo-server:9000/<something>` as endpoint value.
 
+## Available services
+- [Aidbox](http://localhost:8888)  `admin:password`
+- [Subscriber Demo Server](http://localhost:9001)
+- [Grafana](http://localhost:3000/d/aidbox-topic-subs-metrics-dashboard/topic-based-subscriptions?orgId=1&refresh=10s) `admin:password`
+- [Prometheus]([http://localhost:9090](http://localhost:9090/targets)
 
 # How to create Subscription and check notification.
 ## To subscribe to a preconfigured SubscriptionTopic, execute the following command:
