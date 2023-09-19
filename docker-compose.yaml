@@ -103,4 +103,6 @@ services:
     environment:
       AIDBOX_HOST: "http://aidbox:${AIDBOX_PORT}"
       SUBSCRIBER_HOST: "http://subscription-demo-server:9000"
+      NUMBER_OF_SUBSCTIPTION: "100"
+      NUMBER_OF_EVENTS: "2000"
     entrypoint: ["java", "-XX:-OmitStackTraceInFastThrow", "-jar", "/aidbox.jar", "-m", "fhir.topic-based-subscription.demo-server"]
