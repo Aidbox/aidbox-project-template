@@ -1,5 +1,5 @@
 {ns main
- import #{aidbox config}
+ import #{aidbox config awf.scheduler}
 
  observation-topic
  {:zen/tags #{fhir.topic-based-subscription/topic-definition}
@@ -35,6 +35,21 @@
   :topic-definition observation-topic
   :topic-storage postgres-observation-topic-storage}
 
+
+ cleanup-task-schedule
+ {:zen/tags #{awf.scheduler/rule}
+  :schedule "*/5 * * * *" ;; every five minutes
+  :concurrency-policy "forbid"
+  :start-deadline-seconds 60
+  :task-request {:definition fhir.topic-based-subscription/topic-based-subscriptions-clean-up-task
+                 :params {:retention-period {:value 10 :unit "minute"} ;; keep events for 10 minutes
+                          :cdc-service "main/observation-topic-srv"}}}
+
+ scheduler-service
+ {:zen/tags #{aidbox/service}
+  :engine awf.scheduler/task-scheduler-service-engine
+  :rules #{cleanup-task-schedule}}
+
  box
  {:zen/tags #{aidbox/system}
   :config   config/base-config
@@ -42,4 +57,5 @@
              :root-client-seed config/root-client-seed
              :logs config/stdout-appender
 
-             :observation-topic-srv observation-topic-srv}}}
+             :observation-topic-srv observation-topic-srv
+             :cleanup-task-scheduler scheduler-service}}}

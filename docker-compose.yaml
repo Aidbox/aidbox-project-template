@@ -24,6 +24,7 @@ services:
     ports:
       - "${AIDBOX_PORT}:${AIDBOX_PORT}"
       - "${BOX_METRICS_PORT}:${BOX_METRICS_PORT}"
+      - "8181:8181" # Use this port to connect to runtime with VisualVM
     volumes:
       - "./zrc:/aidbox-project/zrc"
       - "./zen-package.edn:/aidbox-project/zen-package.edn"
@@ -37,7 +38,16 @@ services:
       AIDBOX_ZEN_DEV_MODE: "true"
       PGPORT: 5432
       PGHOST: aidbox-db
-
+      JAVA_OPTS: >-
+        -Dcom.sun.management.jmxremote.rmi.port=8181
+        -Dcom.sun.management.jmxremote=true
+        -Dcom.sun.management.jmxremote.port=8181
+        -Dcom.sun.management.jmxremote.ssl=false
+        -Dcom.sun.management.jmxremote.authenticate=false
+        -Dcom.sun.management.jmxremote.local.only=false
+        -Djava.rmi.server.hostname=127.0.0.1
+        -Dcom.sun.management.jmxremote.authenticate=false
+        -XX:MaxRAMPercentage=80
   pushgateway:
     image: prom/pushgateway
     container_name: pushgateway
