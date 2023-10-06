@@ -1,7 +1,8 @@
 {ns main
  import #{aidbox
- 	        aidbox.telemetry.metrics
- 	        aidbox.log
+          aidbox.telemetry.metrics
+          aidbox.telemetry.trace
+          aidbox.log
           config}
  
  box
@@ -16,7 +17,12 @@
   :engine     aidbox.log/open-telemetry-appender
   :config     {:url "http://otel-collector:4318"}}
 
- open-tlemetry-metrics-exporter
+ open-telemetry-metrics-exporter
  {:zen/tags #{aidbox.telemetry.metrics/otlp-exporter}
   :url "http://otel-collector:4318/v1/metrics"
-  :period 5 #_"sec"}}
+  :period 5 #_"sec"}
+
+ otel-trace-exporter
+ {:zen/tags #{aidbox.telemetry.trace/exporter}
+  :engine   aidbox.telemetry.trace/otlp-exporter
+  :url      "http://otel-collector:4318/v1/traces"}}

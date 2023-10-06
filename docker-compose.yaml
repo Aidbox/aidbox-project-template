@@ -110,3 +110,7 @@ services:
     ports:
       - 3001:3000
 
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
