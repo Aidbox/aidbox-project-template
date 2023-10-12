@@ -9,7 +9,7 @@ exporters:
 
   elasticsearch:
     endpoints: ["http://es:9200"]
-    logs_index: my_logs
+    logs_index: aidbox_logs
 
   logging:
     loglevel: debug
