@@ -25,9 +25,6 @@ docker compose up
 Command _docker compose up_ will start Aidbox instance configured with _SubscriptionTopic_ for _Observation_ resource with some filters and criteria preconfigured.
 By default *Aidbox* is available at _http://localhost:8888_, default *User* is: _username_  `admin`, _password_  `password`.
 
-The demo subscription server, which accepts messages from Aidbox, is now running. The UI to monitor these delivered messages is available at _http://localhost:9001_
-
-While creating Subscriptions in Aidobx, use `http://subscription-demo-server:9000/<something>` as endpoint value.
 
 ## Available services
 - [Aidbox](http://localhost:8888)  `admin:password`
