@@ -2,9 +2,8 @@
 
 This repository contains a **template** for the **Aidbox** project with:
 
-- **v4.3.0 R4B FHIR version**
+- Topic-based Subscription enabled integrating with **[Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs)**.
 - A preconfigured example of **SubscriptionTopic** for the **observation resource**.
-- **subscription-demo-server** which allow to receive notification from Aidbox, and review them.
 
 
 # How to init this project
@@ -12,7 +11,7 @@ This repository contains a **template** for the **Aidbox** project with:
 In order to run Aidbox locally, you need to have [Docker & Docker compose installed](https://docs.docker.com/engine/install/). To begin with new aidbox project, run the following command.
 
 ```sh
-git clone --depth=1 --branch=main https://github.com/Aidbox/aidbox-project-template.git aidbox-project && cd aidbox-project && rm -rf .git
+git clone --depth=1 --branch=topic-based-subscription-gcp-pubsub https://github.com/Aidbox/aidbox-project-template.git aidbox-project && cd aidbox-project && rm -rf .git
 ```
 
 Get your Aidbox license on [aidbox.app](https://aidbox.app/). And then set `AIDBOX_LICENSE` env variable in [.env file](.env#L1).
@@ -32,7 +31,6 @@ While creating Subscriptions in Aidobx, use `http://subscription-demo-server:900
 
 ## Available services
 - [Aidbox](http://localhost:8888)  `admin:password`
-- [Subscriber Demo Server](http://localhost:9001)
 - [Grafana](http://localhost:3000/d/aidbox-topic-subs-metrics-dashboard/topic-based-subscriptions?orgId=1&refresh=10s) `admin:password`
 - [Prometheus](http://localhost:9090/targets)
 
