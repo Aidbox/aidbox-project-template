@@ -21,15 +21,14 @@
  gcp-pubsub-observation-topic-storage
  {:zen/tags #{fhir.topic-based-subscription/topic-storage}
   :storage-type fhir.topic-based-subscription/google-pubsub
-  :timeout  1
   :status-interval 10
-  :maxCount 100
   :heartbeat-rate 120
-  :senders-number 2
   :maxContent "full-resource"
-  :topic-name "aidbox-tbs-test"
-  :bytes-threshold 10000
   :project-name "aidbox-cloud-demo"
+  :topic-name "aidbox-tbs-test"
+  :timeout  1
+  :maxCount 100
+  :bytes-threshold 10000
   :enable-message-ordering false}
 
  observation-topic-srv
