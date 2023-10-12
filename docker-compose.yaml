@@ -29,6 +29,7 @@ services:
       - "./zrc:/aidbox-project/zrc"
       - "./zen-package.edn:/aidbox-project/zen-package.edn"
       - "./zen-packages:/aidbox-project/zen-packages"
+      - "./application_default_credentials.json:/aidbox-project/application_default_credentials.json"
     env_file:
       - .env
     environment:
@@ -90,19 +91,3 @@ services:
     image: grafana/grafana:10.0.0
     ports:
       - 3000:3000
-
-  subscription-demo-server:
-    image: healthsamurai/aidboxone:edge
-    pull_policy: always
-    links:
-      - "aidbox-db:database"
-    ports:
-      - "9001:9001"
-    env_file:
-      - .env
-    environment:
-      AIDBOX_HOST: "http://aidbox:${AIDBOX_PORT}"
-      SUBSCRIBER_HOST: "http://subscription-demo-server:9000"
-      NUMBER_OF_SUBSCTIPTION: "100"
-      NUMBER_OF_EVENTS: "2000"
-    entrypoint: ["java", "-XX:-OmitStackTraceInFastThrow", "-jar", "/aidbox.jar", "-m", "fhir.topic-based-subscription.demo-server"]

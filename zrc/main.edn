@@ -18,22 +18,25 @@
                  :modifier        ["eq"]}]}
 
 
- postgres-observation-topic-storage
+ gcp-pubsub-observation-topic-storage
  {:zen/tags #{fhir.topic-based-subscription/topic-storage}
-  :storage-type fhir.topic-based-subscription/postgres
+  :storage-type fhir.topic-based-subscription/google-pubsub
   :timeout  1
   :status-interval 10
   :maxCount 100
   :heartbeat-rate 120
   :senders-number 2
   :maxContent "full-resource"
-  :table-name "observation_topic"}
+  :topic-name "aidbox-tbs-test"
+  :bytes-threshold 10000
+  :project-name "aidbox-cloud-demo"
+  :enable-message-ordering false}
 
  observation-topic-srv
  {:zen/tags #{aidbox/service}
   :engine fhir.topic-based-subscription/change-data-capture-service-engine
   :topic-definition observation-topic
-  :topic-storage postgres-observation-topic-storage}
+  :topic-storage gcp-pubsub-observation-topic-storage}
 
 
  cleanup-task-schedule
