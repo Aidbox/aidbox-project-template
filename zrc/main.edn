@@ -1,25 +1,11 @@
 {ns main
  import #{aidbox config awf.scheduler}
 
- topic-def
- {:zen/tags #{fhir.topic-based-subscription/topic-definition}
-  :url "http://aidbox.app/SubscriptionTopic/observations"
-  :resourceTrigger [{:resource "Patient"}
-                    {:resource "Encounter"
-                     :fhirPathCriteria "%previous.status != 'completed' and %current.status = 'completed'"}]
-
-  :canFilterBy [{:resource        "Patient"
-                 :filterParameter "Patient-deceased"
-                 :_fhirPath       "(%previous.deceased.exists().not() or %previoius.deceased = false) and (%current.deceased.exists() and %current.deceased = true)"
-                 :modifier        ["eq"]}
-                {:filterParameter "resource-type"
-                 :_fhirPath       "resourceType"
-                 :modifier        ["eq"]}]}
-
  encounter-completed-task
  {:zen/tags          #{zen/schema awf.task/definition}
   :type              zen/map
-  :requestedToStartTimeout 20000
+  :requestedToStartTimeout 300000 #_"This parameter is so big for demo purposes only."
+  :inProgressTimeout       300000
   :allowedRetryCount 3
   :retryDelay        1000
   :concurrencyLimit  5
@@ -44,6 +30,21 @@
   :keys              {:params {:type zen/any}
                       :result {:type zen/any}}}
 
+ topic-def
+ {:zen/tags #{fhir.topic-based-subscription/topic-definition}
+  :url "http://aidbox.app/SubscriptionTopic/observations"
+  :resourceTrigger [{:resource "Patient"}
+                    {:resource "Encounter"
+                     :fhirPathCriteria "%current.status = 'completed'"}]
+
+  :canFilterBy [{:resource        "Patient"
+                 :filterParameter "Patient-deceased"
+                 :_fhirPath       "(%previous.deceased.exists().not() or %previoius.deceased = false) and (%current.deceased.exists() and %current.deceased = true)"
+                 :modifier        ["eq"]}
+                {:filterParameter "resource-type"
+                 :_fhirPath       "resourceType"
+                 :modifier        ["eq"]}]}
+
  awf-connector
  {:zen/tags #{fhir.topic-based-subscription/topic-storage}
   :storage-type fhir.topic-based-subscription/awf-connector
@@ -62,26 +63,11 @@
                        :modifier        "eq"
                        :value           "true"}]}]}
 
- observation-topic-srv
+ topic-srv
  {:zen/tags #{aidbox/service}
   :engine fhir.topic-based-subscription/change-data-capture-service-engine
   :topic-definition topic-def
-  :topic-storage gcp-pubsub-observation-topic-storage}
-
-
- cleanup-task-schedule
- {:zen/tags #{awf.scheduler/rule}
-  :schedule "*/5 * * * *" ;; every five minutes
-  :concurrency-policy "forbid"
-  :start-deadline-seconds 60
-  :task-request {:definition fhir.topic-based-subscription/topic-based-subscriptions-clean-up-task
-                 :params {:retention-period {:value 10 :unit "minute"} ;; keep events for 10 minutes
-                          :cdc-service "main/observation-topic-srv"}}}
-
- scheduler-service
- {:zen/tags #{aidbox/service}
-  :engine awf.scheduler/task-scheduler-service-engine
-  :rules #{cleanup-task-schedule}}
+  :topic-storage awf-connector}
 
  box
  {:zen/tags #{aidbox/system}
@@ -89,6 +75,4 @@
   :services {:admin-user-seed config/admin-user-seed
              :root-client-seed config/root-client-seed
              :logs config/stdout-appender
-
-             :observation-topic-srv observation-topic-srv
-             :cleanup-task-scheduler scheduler-service}}}
+             :topic topic-srv}}}
