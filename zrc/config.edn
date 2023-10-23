@@ -1,9 +1,7 @@
 {ns     config
  import #{aidbox
           aidbox.config
-          aidbox.log
-          hl7-fhir-r4b-core
-          hl7-fhir-uv-subscriptions-backport-r4b}
+          aidbox.log}
 
  db-config
  {:zen/tags #{aidbox.config/db}

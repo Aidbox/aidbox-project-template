@@ -1,40 +1,71 @@
 {ns main
  import #{aidbox config awf.scheduler}
 
- observation-topic
+ topic-def
  {:zen/tags #{fhir.topic-based-subscription/topic-definition}
   :url "http://aidbox.app/SubscriptionTopic/observations"
-  :resourceTrigger [{:resource "Observation"
-                     :fhirPathCriteria "%current.value.ofType(Quantity).value > 10"}]
+  :resourceTrigger [{:resource "Patient"}
+                    {:resource "Encounter"
+                     :fhirPathCriteria "%previous.status != 'completed' and %current.status = 'completed'"}]
 
-  :canFilterBy [{:resource        "Observation"
-                 :filterParameter "value"
-                 :_fhirPath       "%current.value.ofType(Quantity).value"
-                 :modifier        ["eq" "gt" "lt" "ge" "le"]}
-
-                {:resource        "Observation"
-                 :filterParameter "value-increase"
-                 :_fhirPath       "%current.value.ofType(Quantity).value > %previous.value.ofType(Quantity).value"
+  :canFilterBy [{:resource        "Patient"
+                 :filterParameter "Patient-deceased"
+                 :_fhirPath       "(%previous.deceased.exists().not() or %previoius.deceased = false) and (%current.deceased.exists() and %current.deceased = true)"
+                 :modifier        ["eq"]}
+                {:filterParameter "resource-type"
+                 :_fhirPath       "resourceType"
                  :modifier        ["eq"]}]}
 
+ encounter-completed-task
+ {:zen/tags          #{zen/schema awf.task/definition}
+  :type              zen/map
+  :requestedToStartTimeout 20000
+  :allowedRetryCount 3
+  :retryDelay        1000
+  :concurrencyLimit  5
+  :keys              {:params {:type zen/any}
+                      :result {:type zen/any}}}
 
- gcp-pubsub-observation-topic-storage
+ patient-deceased-task
+ {:zen/tags          #{zen/schema awf.task/definition}
+  :type              zen/map
+  :allowedRetryCount 3
+  :retryDelay        1000
+  :concurrencyLimit  5
+  :keys              {:params {:type zen/any}
+                      :result {:type zen/any}}}
+
+ patient-change-task
+ {:zen/tags          #{zen/schema awf.task/definition}
+  :type              zen/map
+  :allowedRetryCount 1
+  :retryDelay        1000
+  :concurrencyLimit  5
+  :keys              {:params {:type zen/any}
+                      :result {:type zen/any}}}
+
+ awf-connector
  {:zen/tags #{fhir.topic-based-subscription/topic-storage}
-  :storage-type fhir.topic-based-subscription/google-pubsub
-  :status-interval 10
-  :heartbeat-rate 120
+  :storage-type fhir.topic-based-subscription/awf-connector
   :maxContent "full-resource"
-  :project-name "aidbox-cloud-demo"
-  :topic-name "aidbox-tbs-test"
-  :timeout  1
-  :maxCount 100
-  :bytes-threshold 10000
-  :enable-message-ordering false}
+  :rules [{:task     {:definition       encounter-completed-task}
+           :filterBy [{:filterParameter "resource-type"
+                       :modifier        "eq"
+                       :value           "Encounter"}]}
+          {:task     {:definition       patient-change-task}
+           :filterBy [{:filterParameter "resource-type"
+                       :modifier        "eq"
+                       :value           "Patient"}]}
+          {:task     {:definition       patient-deceased-task}
+           :filterBy [{:resourceType    "Patient"
+                       :filterParameter "Patient-deceased"
+                       :modifier        "eq"
+                       :value           "true"}]}]}
 
  observation-topic-srv
  {:zen/tags #{aidbox/service}
   :engine fhir.topic-based-subscription/change-data-capture-service-engine
-  :topic-definition observation-topic
+  :topic-definition topic-def
   :topic-storage gcp-pubsub-observation-topic-storage}
 
 
