@@ -20,7 +20,7 @@
 
  gcp-pubsub-observation-topic-storage
  {:zen/tags #{fhir.topic-based-subscription/topic-storage}
-  :storage-type fhir.topic-based-subscription/google-pubsub
+  :storage-type fhir.topic-based-subscription/gcp-pubsub
   :status-interval 10
   :heartbeat-rate 120
   :maxContent "full-resource"
