@@ -2,9 +2,10 @@
 
 This repository contains a **template** for the **Aidbox** project with:
 
-- Topic-based Subscription enabled integrating with **[Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs)**.
-- A preconfigured example of **SubscriptionTopic** for the **observation resource**.
+- Topic-based Subscription enabled integrating with **[Aidbox Workflow Engine](https://docs.aidbox.app/modules-1/workflow-engine)**.
+- A preconfigured example of **SubscriptionTopic** that allows **Task** creation for specific trigger events.
 
+Check the `SubscriptionTopic to Aidbox Task (DEMO)` community notebook with the corresponding scenario for the project.
 
 # How to init this project
 
