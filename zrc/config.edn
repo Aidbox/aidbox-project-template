@@ -58,7 +58,7 @@
   :fhir-version            "3.0.1"
   :compliant-mode-enabled? true
   :override-createdat-url  "http://fhir.aidbox.app/extension/createdat"
-  :correct-aidbox-format   true
+  :correct-aidbox-format   false
   :dev-mode                #env-boolean AIDBOX_DEV_MODE
   :stdout-pretty           true
   :disable-legacy-seed     true}
