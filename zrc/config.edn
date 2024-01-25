@@ -1,7 +1,6 @@
 {ns     config
  import #{aidbox
-          aidbox.config
-          hl7-fhir-r4-core}
+          aidbox.config}
 
  db-config
  {:zen/tags #{aidbox.config/db}
@@ -56,10 +55,10 @@
 
   :aidbox-license #env AIDBOX_LICENSE
 
-  :fhir-version            "4.0.1"
+  :fhir-version            "4.3.0"
   :compliant-mode-enabled? true
   :override-createdat-url  "http://fhir.aidbox.app/extension/createdat"
-  :correct-aidbox-format   true
+  :correct-aidbox-format   false
   :dev-mode                #env-boolean AIDBOX_DEV_MODE
   :stdout-pretty           true
   :disable-legacy-seed     true}
