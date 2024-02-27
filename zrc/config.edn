@@ -28,6 +28,7 @@
  {:zen/tags         #{aidbox.config/search}
   :zen-fhir         :enable
   :fhir-comparisons true
+  :include {:conformant true}
   :default-params   {:timeout 30
                      :total   "none"
                      :count   100}
