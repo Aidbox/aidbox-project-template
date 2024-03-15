@@ -46,6 +46,10 @@
          :private #env BOX_AUTH_KEYS_PRIVATE
          :public #env BOX_AUTH_KEYS_PUBLIC}}
 
+ metrics
+ {:zen/tags #{aidbox.config/metrics}
+  :port #env BOX_METRICS_PORT}
+
  base-config
  {:zen/tags                #{aidbox.config/config}
   :web                     web-config
@@ -53,6 +57,7 @@
   :search                  search-config
   :compatibility           compatibility-config
   :auth                    auth
+  :metrics                 metrics
 
   :aidbox-license #env AIDBOX_LICENSE
 

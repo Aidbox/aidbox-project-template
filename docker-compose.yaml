@@ -18,6 +18,7 @@ services:
     depends_on: ["aidbox-db"]
     ports:
       - "${AIDBOX_PORT}:${AIDBOX_PORT}"
+      - "${BOX_METRICS_PORT}:${BOX_METRICS_PORT}"
     volumes:
       - "./zrc:/aidbox-project/zrc"
       - "./zen-package.edn:/aidbox-project/zen-package.edn"
