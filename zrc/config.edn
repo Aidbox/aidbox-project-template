@@ -48,7 +48,7 @@
 
  metrics
  {:zen/tags #{aidbox.config/metrics}
-  :port #env BOX_METRICS_PORT}
+  :port #env-integer BOX_METRICS_PORT}
 
  base-config
  {:zen/tags                #{aidbox.config/config}
