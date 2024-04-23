@@ -1,7 +1,6 @@
 {ns     config
  import #{aidbox
-          aidbox.config
-          hl7-fhir-r4-core}
+          aidbox.config}
 
  db-config
  {:zen/tags #{aidbox.config/db}
@@ -46,10 +45,6 @@
          :private #env BOX_AUTH_KEYS_PRIVATE
          :public #env BOX_AUTH_KEYS_PUBLIC}}
 
- metrics
- {:zen/tags #{aidbox.config/metrics}
-  :port #env-integer BOX_METRICS_PORT}
-
  base-config
  {:zen/tags                #{aidbox.config/config}
   :web                     web-config
@@ -57,10 +52,7 @@
   :search                  search-config
   :compatibility           compatibility-config
   :auth                    auth
-  :metrics                 metrics
-
-  :aidbox-license #env AIDBOX_LICENSE
-
+  :aidbox-license          #env AIDBOX_LICENSE
   :fhir-version            "4.0.1"
   :compliant-mode-enabled? true
   :override-createdat-url  "http://fhir.aidbox.app/extension/createdat"
