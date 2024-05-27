@@ -18,15 +18,13 @@ services:
     depends_on: ["aidbox-db"]
     ports:
       - "${AIDBOX_PORT}:${AIDBOX_PORT}"
-      - "${BOX_METRICS_PORT}:${BOX_METRICS_PORT}"
     volumes:
       - "./zrc:/aidbox-project/zrc"
-      - "./zen-package.edn:/aidbox-project/zen-package.edn"
-      - "./zen-packages:/aidbox-project/zen-packages"
+      - "./tmp:/tmp"
     env_file:
       - .env
     environment:
-      BOX_PROJECT_GIT_TARGET__PATH: /aidbox-project
+      BOX_PROJECT_GIT_TARGET__PATH: /aidbox-project/zrc
       AIDBOX_ZEN_ENTRYPOINT: main/box
       AIDBOX_DEV_MODE: "true"
       AIDBOX_ZEN_DEV_MODE: "true"
