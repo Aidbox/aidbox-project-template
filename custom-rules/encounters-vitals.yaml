@@ -1,0 +1,26 @@
+aidbox.ccda.rules.encounters/narrative:
+  select:
+    - selector:
+        cda:  [text 0 cols 1]
+        fhir: [entry * type 0]
+      override:
+        cda:  [text 0 cols 1]
+        fhir: [entry * class]
+aidbox.ccda.rules.vital-signs/narrative:
+  assoc:
+    - cda: [text 0]
+      const:
+        type: table
+        header:
+          - Vital sign
+          - Date
+          - Value and units
+    - fhir: [entry *]
+      cda: [text 0 rows]
+      apply-rules:
+        - fhir: [code]
+          cda: [0]
+        - fhir: [effective]
+          cda: [1]
+        - fhir: [value]
+          cda: [2]

@@ -16,33 +16,6 @@ services:
     image: healthsamurai/aidboxone:edge
     pull_policy: always
     depends_on: ["aidbox-db"]
-    CCDA_CUSTOM_RULES:
-      aidbox.ccda.rules.encounters/narrative:
-        select:
-          - selector:
-              cda:  [text 0 cols 1]
-              fhir: [entry * type 0]
-            override:
-              cda:  [text 0 cols 1]
-              fhir: [entry * class]
-      aidbox.ccda.rules.vital-signs/narrative:
-        assoc:
-          - cda: [text 0]
-            const:
-              type: table
-              header:
-                - Vital sign
-                - Date
-                - Value and units
-          - fhir: [entry *]
-            cda: [text 0 rows]
-            apply-rules:
-              - fhir: [code]
-                cda: [0]
-              - fhir: [effective]
-                cda: [1]
-              - fhir: [value]
-                cda: [2]
     ports:
       - "${AIDBOX_PORT}:${AIDBOX_PORT}"
       - "${BOX_METRICS_PORT}:${BOX_METRICS_PORT}"
@@ -50,11 +23,13 @@ services:
       - "./zrc:/aidbox-project/zrc"
       - "./zen-package.edn:/aidbox-project/zen-package.edn"
       - "./zen-packages:/aidbox-project/zen-packages"
+      - "./custom-rules/encounters-vitals.yaml:/aidbox-project/encounters-vitals.yaml"
     env_file:
       - .env
     environment:
       BOX_PROJECT_GIT_TARGET__PATH: /aidbox-project
       AIDBOX_ZEN_ENTRYPOINT: main/box
+      CCDA_CUSTOM_RULES: ./aidbox-project/encounters-vitals.yaml
       AIDBOX_DEV_MODE: "true"
       AIDBOX_ZEN_DEV_MODE: "true"
       PGPORT: 5432
