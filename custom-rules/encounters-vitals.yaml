@@ -6,8 +6,29 @@ aidbox.ccda.rules.encounters/narrative:
       override:
         cda:  [text 0 cols 1]
         fhir: [entry * class]
+    - selector:
+        cda: [text 0 cols 2]
+        fhir: [entry * location 0 location address]
+      override:
+        cda: [text 0 cols 2]
+        fhir: [entry * location 0 location type 0]
+aidbox.ccda.rules.shared.encounter/rules:
+  select:
+    - selector:
+        cda: [code]
+        fhir: [type 0]
+        id: enc-code
+      override:
+        cda: [code]
+        fhir: [class]
+        cda/default:
+          -nullFlavor: UNK
+          cda/type: const
+  remove:
+    - selector:
+        fhir: [class]
 aidbox.ccda.rules.vital-signs/narrative:
-  assoc:
+  replace:
     - cda: [text 0]
       const:
         type: table
