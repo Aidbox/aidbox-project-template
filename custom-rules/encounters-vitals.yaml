@@ -27,6 +27,26 @@ aidbox.ccda.rules.shared.encounter/rules:
   remove:
     - selector:
         fhir: [class]
+aidbox.ccda.rules.problems/narrative:
+  replace:
+    - cda: [text 0]
+      const:
+        type: table
+        caption:
+          - Problems
+        header:
+          - Problem
+          - Noted Date
+          - Diagnosed Date
+    - fhir: [entry *]
+      cda: [text 0 rows]
+      apply-rules:
+        - fhir: [code]
+          cda: [0]
+        - fhir: [onset]
+          cda: [1]
+        - fhir: [recordedDate]
+          cda: [2]
 aidbox.ccda.rules.vital-signs/narrative:
   replace:
     - cda: [text 0]
