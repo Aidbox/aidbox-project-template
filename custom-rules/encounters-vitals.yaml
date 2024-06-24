@@ -33,10 +33,10 @@ aidbox.ccda.rules.shared.problem-observation/rules:
         cda: [code]
       override:
         cda: [code]
-        cda/const:
+        const:
           -xsi:type: CD
           cda/type: const
-          -code: 282291009
+          -code: "282291009"
           -displayName: Diagnosis
           -codeSystemName: SNOMED-CT
           -codeSystem: 2.16.840.1.113883.6.96
