@@ -27,6 +27,21 @@ aidbox.ccda.rules.shared.encounter/rules:
   remove:
     - selector:
         fhir: [class]
+aidbox.ccda.rules.shared.problem-observation/rules:
+  select:
+    - selector:
+        cda: [code]
+      override:
+        cda: [code]
+        cda/const:
+          -xsi:type: CD
+          cda/type: const
+          -code: 282291009
+          -displayName: Diagnosis
+          -codeSystemName: SNOMED-CT
+          -codeSystem: 2.16.840.1.113883.6.96
+          translation:
+            -nullFlavor: UNK
 aidbox.ccda.rules.vital-signs/narrative:
   replace:
     - cda: [text 0]
