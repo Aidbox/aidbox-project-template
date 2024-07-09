@@ -47,6 +47,17 @@ aidbox.ccda.rules.problems/narrative:
           cda: [1]
         - fhir: [recordedDate]
           cda: [2]
+aidbox.ccda.rules.allergies/narrative:
+  select:
+    - selector:
+        cda: [text 0 cols 0]
+        fhir: [entry * type]
+      override:
+        cda:  [text 0 cols 0]
+        fhir: [entry * category 0]
+        cda/default:
+          -nullFlavor: UNK
+          cda/type: const
 aidbox.ccda.rules.vital-signs/narrative:
   replace:
     - cda: [text 0]
