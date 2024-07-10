@@ -27,6 +27,27 @@ aidbox.ccda.rules.shared.encounter/rules:
   remove:
     - selector:
         fhir: [class]
+aidbox.ccda.rules.results/narrative:
+  replace:
+    - cda: [text 0]
+      const:
+        type: table
+        header:
+          - Code
+          - Value
+          - Date
+          - Reference Range
+    - fhir: [entry 0 hasMember *]
+      cda: [text 0 rows]
+      apply-rules:
+        - cda: [0]
+          fhir: [code]
+        - cda: [1]
+          fhir: [value]
+        - cda: [2]
+          fhir: [effective]
+        - cda: [3]
+          fhir: [referenceRange]
 aidbox.ccda.rules.problems/narrative:
   replace:
     - cda: [text 0]
