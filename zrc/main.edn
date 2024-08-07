@@ -1,7 +1,8 @@
 {ns main
  import #{aidbox
-          config}
- 
+          config
+          aidbox.multitenancy.v1.fhir-r4}
+
  box
  {:zen/tags #{aidbox/system}
   :config   config/base-config
