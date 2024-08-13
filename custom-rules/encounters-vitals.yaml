@@ -6,8 +6,12 @@ aidbox.ccda.rules.shared.patient/rules:
       override:
         cda:  [patientRole id]
         fhir: [identifier]
-        cda-fn: "(vec (sort-by (comp not #{\"urn:identifier:innovaccer:empi\"} :system)
-                      (get :%1)))"
+        cda-fn: "(update-in (vec (sort-by (comp not #{\"urn:identifier:innovaccer:empi\"} :system)
+                         (get :%1)))
+           [0 :system]
+           (fn [x] (if (= \"urn:identifier:innovaccer:empi\" x)
+                     \"urn-identifier-innovaccer-empi\"
+                     x)))"
 aidbox.ccda.rules.encounters/narrative:
   select:
     - selector:
