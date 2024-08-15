@@ -24,6 +24,7 @@ services:
       - "./zen-package.edn:/aidbox-project/zen-package.edn"
       - "./zen-packages:/aidbox-project/zen-packages"
       - "./custom-rules/encounters-vitals.yaml:/aidbox-project/encounters-vitals.yaml"
+      - "./custom-rules/custom-codemaps.yaml:/aidbox-project/custom-codemaps.yaml"
     env_file:
       - .env
     environment:
