@@ -30,6 +30,7 @@ services:
       BOX_PROJECT_GIT_TARGET__PATH: /aidbox-project
       AIDBOX_ZEN_ENTRYPOINT: main/box
       CCDA_CUSTOM_RULES: ./aidbox-project/encounters-vitals.yaml
+      CCDA_CUSTOM_CODEMAPS: ./aidbox-project/custom-codemaps.yaml
       AIDBOX_DEV_MODE: "true"
       AIDBOX_ZEN_DEV_MODE: "true"
       PGPORT: 5432
