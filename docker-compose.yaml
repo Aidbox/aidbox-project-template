@@ -32,6 +32,7 @@ services:
       AIDBOX_ZEN_ENTRYPOINT: main/box
       CCDA_CUSTOM_RULES: ./aidbox-project/encounters-vitals.yaml
       CCDA_CUSTOM_CODEMAPS: ./aidbox-project/custom-codemaps.yaml
+      REPLACE_ROOT_ATTRIBUTE: "true"
       AIDBOX_DEV_MODE: "true"
       AIDBOX_ZEN_DEV_MODE: "true"
       PGPORT: 5432
