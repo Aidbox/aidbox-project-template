@@ -35,5 +35,6 @@ services:
       REPLACE_ROOT_ATTRIBUTE: "true"
       AIDBOX_DEV_MODE: "true"
       AIDBOX_ZEN_DEV_MODE: "true"
+      AIDBOX_CORRECT_AIDBOX_FORMAT: "true"
       PGPORT: 5432
       PGHOST: aidbox-db
