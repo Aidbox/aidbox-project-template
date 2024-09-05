@@ -52,10 +52,5 @@
 
  box
  {:zen/tags #{aidbox/system}
-  :config   config/base-config
-  :services {:admin-user-seed config/admin-user-seed
-             :root-client-seed config/root-client-seed
-             :logs config/stdout-appender
-
-             :observation-topic-srv observation-topic-srv
+  :services {:observation-topic-srv observation-topic-srv
              :cleanup-task-scheduler scheduler-service}}}
