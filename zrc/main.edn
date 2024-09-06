@@ -1,5 +1,5 @@
 {ns main
- import #{aidbox config awf.scheduler}
+ import #{aidbox awf.scheduler}
 
  custom-patient-topic
  {:zen/tags #{fhir.topic-based-subscription/topic-definition}
@@ -41,7 +41,7 @@
   :start-deadline-seconds 60
   :task-request {:definition fhir.topic-based-subscription/topic-based-subscriptions-clean-up-task
                  :params {:retention-period {:value 10 :unit "minute"} ;; keep events for 10 minutes
-                          :cdc-service "custom-patient-topic-srv"}}}
+                          :cdc-service "main/custom-patient-topic-srv"}}}
 
  scheduler-service
  {:zen/tags #{aidbox/service}
