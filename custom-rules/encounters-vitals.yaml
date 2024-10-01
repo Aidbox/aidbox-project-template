@@ -1,6 +1,13 @@
 aidbox.ccda.rules.shared.patient/rules:
   select:
     - selector:
+        cda:  [patientRole patient name]
+        fhir: [name]
+      override:
+        cda:  [patientRole patient name]
+        fhir: [name]
+        cda-fn: "(aidbox.ccda.core/get-official-name (get :%1))"
+    - selector:
         cda:  [patientRole id]
         fhir: [identifier]
       override:
