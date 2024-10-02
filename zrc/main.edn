@@ -1,7 +1,7 @@
 {ns main
  import #{aidbox
           config
-          aidbox.multitenancy.v1.fhir-r4}
+          aidbox.multitenancy.v1.fhir-r5}
 
  box
  {:zen/tags #{aidbox/system}
