@@ -25,7 +25,7 @@
   :heartbeat-rate 120
   :senders-number 2
   :maxContent "full-resource"
-  :table-name "custom_patient_topic"}
+  :table-name "observation_topic"}
 
  custom-patient-topic-srv
  {:zen/tags #{aidbox/service}
@@ -41,7 +41,7 @@
   :start-deadline-seconds 60
   :task-request {:definition fhir.topic-based-subscription/topic-based-subscriptions-clean-up-task
                  :params {:retention-period {:value 10 :unit "minute"} ;; keep events for 10 minutes
-                          :cdc-service "main/custom-patient-topic-srv"}}}
+                          :cdc-service "main/observation-topic-srv"}}}
 
  scheduler-service
  {:zen/tags #{aidbox/service}
@@ -50,5 +50,5 @@
 
  box
  {:zen/tags #{aidbox/system}
-  :services {:custom-patient-topic-srv custom-patient-topic-srv
+  :services {:observation-topic-srv custom-patient-topic-srv
              :cleanup-task-scheduler scheduler-service}}}
