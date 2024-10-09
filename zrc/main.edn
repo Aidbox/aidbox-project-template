@@ -1,22 +1,24 @@
 {ns main
  import #{aidbox awf.scheduler}
 
- custom-patient-topic
+ observation-topic
  {:zen/tags #{fhir.topic-based-subscription/topic-definition}
-  :url "http://aidbox.app/SubscriptionTopic/patients"
-  :resourceTrigger [{:resource "PatientSubsZen"}]
+  :url "http://aidbox.app/SubscriptionTopic/observations"
+  :resourceTrigger [{:resource "Observation"
+                     :fhirPathCriteria "%current.value.ofType(Quantity).value > 10"}]
 
-  #_#_:canFilterBy [{:resource        "PatientSubsZen"
+  :canFilterBy [{:resource        "Observation"
                  :filterParameter "value"
                  :_fhirPath       "%current.value.ofType(Quantity).value"
                  :modifier        ["eq" "gt" "lt" "ge" "le"]}
 
-                {:resource        "PatientSubsZen"
+                {:resource        "Observation"
                  :filterParameter "value-increase"
                  :_fhirPath       "%current.value.ofType(Quantity).value > %previous.value.ofType(Quantity).value"
                  :modifier        ["eq"]}]}
 
- postgres-custom-patient-topic-storage
+
+ postgres-observation-topic-storage
  {:zen/tags #{fhir.topic-based-subscription/topic-storage}
   :storage-type fhir.topic-based-subscription/postgres
   :timeout  1
@@ -27,11 +29,11 @@
   :maxContent "full-resource"
   :table-name "observation_topic"}
 
- custom-patient-topic-srv
+ observation-topic-srv
  {:zen/tags #{aidbox/service}
   :engine fhir.topic-based-subscription/change-data-capture-service-engine
-  :topic-definition custom-patient-topic
-  :topic-storage postgres-custom-patient-topic-storage}
+  :topic-definition observation-topic
+  :topic-storage postgres-observation-topic-storage}
 
 
  cleanup-task-schedule
@@ -50,5 +52,5 @@
 
  box
  {:zen/tags #{aidbox/system}
-  :services {:observation-topic-srv custom-patient-topic-srv
+  :services {:observation-topic-srv observation-topic-srv
              :cleanup-task-scheduler scheduler-service}}}
