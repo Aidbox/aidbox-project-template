@@ -32,6 +32,7 @@
   :default-params   {:timeout 30
                      :total   "none"
                      :count   100}
+  :include          {:conformant true}
   :chain            {:subselect true}}
 
  compatibility-config
