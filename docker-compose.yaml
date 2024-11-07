@@ -1,16 +1,16 @@
-version: '3.7'
+version: "3.7"
 services:
   aidbox-db:
-    image: healthsamurai/aidboxdb:15.3
+    image: healthsamurai/aidboxdb:17
     pull_policy: always
     ports:
       - "${PGHOSTPORT}:5432"
     volumes:
       - "./pgdata:/data"
     environment:
-      POSTGRES_USER:     "${PGUSER}"
+      POSTGRES_USER: "${PGUSER}"
       POSTGRES_PASSWORD: "${PGPASSWORD}"
-      POSTGRES_DB:       "${PGDATABASE}"
+      POSTGRES_DB: "${PGDATABASE}"
 
   aidbox:
     image: healthsamurai/aidboxone:edge
