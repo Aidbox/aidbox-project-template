@@ -106,10 +106,4 @@ aidbox.ccda.rules.vital-signs/narrative:
           - Value and units
     - fhir: [entry *]
       cda: [text 0 rows]
-      apply-rules:
-        - fhir: [code]
-          cda: [0]
-        - fhir: [effective]
-          cda: [1]
-        - fhir: [value]
-          cda: [2]
+      cda-fn: "(aidbox.ccda.core/sort-vitals (get :%1))"
